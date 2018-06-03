@@ -23,5 +23,5 @@ input a dictionary, also it makes sense to give it only partial data.
 m = Magic(fp_r.parsed.FinancialEvents.ShipmentEventList)
 # so we have rowdata or listdata just look at both
 # listdata you can easily use in a dataframe, like so
-pd.DataFrame(m.dictdata)
+pd.DataFrame(m.listdata)
 ```
