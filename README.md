@@ -6,12 +6,12 @@
 That should be able to parse and flatten every json like response from mws.
 
 The finance api is probably one of the hardest. There are lists somewhere in the middle, which consists of sometimes multiple nested dicts.
-There we get too many columns, because the nesting we get is not consistend.
+There we get too many columns, because the nesting we get is not consistent.
 
 We can solve this, tough need to be careful to not mess up the namespace.
 
 The vast majority of the data comes in dictionaries thats good.
-For lists you have two options, you can enumarate them or you can make new rows.
+For lists you have two options, you can enumerate them or you can make new rows.
 For each item you want to make a row.
 But for 6 Bulletpoints, which are part of a much larger attribute set, you want to enumarate them.
 We use the fact that those values of e.g. Bulletpointlist are most likely strings.
