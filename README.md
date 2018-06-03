@@ -17,8 +17,11 @@ But for 6 Bulletpoints, which are part of a much larger attribute set, you want 
 We use the fact that those values of e.g. Bulletpointlist are most likely strings.
 Somewhere else we can maybe punch even more together.
 
-usage give a dictionary it makes sence to give it only partial data
+## Usage
+input a dictionary, also it makes sense to give it only partial data.
+```python
 m = Magic(fp_r.parsed.FinancialEvents.ShipmentEventList)
-so we have rowdata or listdata just look at both
-listdata you can easily use in a dataframe, like so
+# so we have rowdata or listdata just look at both
+# listdata you can easily use in a dataframe, like so
 pd.DataFrame(m.dictdata)
+```
