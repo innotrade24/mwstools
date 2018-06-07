@@ -1,13 +1,13 @@
 import collections
-import pandas as pd
+
 
 class Magic():
     def __init__(self, d):
         self.rowdata = None
         self.rowdata = []
-        self.dictdata = self.flatten(d)
+        self.dictdata = self._flatten(d)
 
-    def flatten(self, d, parent_key='', sep='.', force_toplevel=False):
+    def _flatten(self, d, parent_key='', sep='.', force_toplevel=False):
         '''
         The vast majority of the data comes in dictionaries thats good.
         For lists you have two options, you can enumarate them or you can make new rows.
@@ -15,7 +15,7 @@ class Magic():
         But for 6 Bulletpoints, which are part of a much larger attribute set, you want to enumarate them.
         We use the fact that those values of e.g. Bulletpointlist are most likely strings.
         Somewhere else we can maybe punch even more together.
-        
+
         Usage: input a dictionary, also it makes sense to give it only partial data.
         m = Magic(fp_r.parsed.FinancialEvents.ShipmentEventList)
         so we have rowdata or listdata just look at both
@@ -47,11 +47,12 @@ class Magic():
                         # this is resolving a list by making new rows
                         elif isinstance(j, dict):
                             if not force_toplevel:
-                                items.extend(self.flatten(j, new_key, sep=sep, force_toplevel=True).items())
+                                items.extend(self._flatten(j, new_key, sep=sep,
+                                                           force_toplevel=True).items())
                                 self.rowdata.append(dict(items))
                             else:
                                 # print('#'*20+str(j))
-                                return dict(self.flatten(j, new_key, sep=sep, force_toplevel=True).items())
+                                return dict(self._flatten(j, new_key, sep=sep, force_toplevel=True).items())
                             # print('ψ'*20+str(items))
                             # print(force_toplevel)
                             # print('_'*20)
@@ -62,11 +63,12 @@ class Magic():
                     if force_toplevel:
                         # items.append((new_key, v))
                         # print('ξ'*20+str(v))
-                        items.extend(self.flatten(v, new_key, sep=sep, force_toplevel=True).items())
+                        items.extend(self._flatten(v, new_key, sep=sep,
+                                                   force_toplevel=True).items())
                         # that's another multiple times nested dictionary we want to resvolve into a single row
 
                     else:
-                        items.extend(self.flatten(v, new_key, sep=sep).items())
+                        items.extend(self._flatten(v, new_key, sep=sep).items())
                 else:
                     items.append((new_key, v))
 
